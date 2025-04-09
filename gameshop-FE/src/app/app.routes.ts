@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'login',
-    loadComponent: () => import('./auth/auth.component').then(m => m.AuthComponent)
+    path: 'videogames',
+    loadComponent: () => import('./videogame/videogame.component').then(m => m.VideogameComponent)
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' }
+  { path: '', redirectTo: 'videogames', pathMatch: 'full' },
+  { path: '**', redirectTo: 'videogames' }
 ];

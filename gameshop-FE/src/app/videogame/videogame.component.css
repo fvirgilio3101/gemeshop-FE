@@ -1,0 +1,21 @@
+.catalog-container {
+  padding: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.game-card {
+  width: 300px;
+}
+
+.rating {
+  margin-top: 12px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+}
