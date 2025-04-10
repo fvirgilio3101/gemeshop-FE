@@ -1,5 +1,10 @@
 <mat-toolbar color="primary">
-  🎮 Catalogo Videogiochi
+   Catalogo Videogiochi
+   <span class="spacer"></span>
+   <button mat-flat-button color="accent" (click)="open()">
+    <mat-icon>add</mat-icon>
+        Aggiungi Videogioco
+    </button>
 </mat-toolbar>
 
 <div class="catalog-container">
@@ -13,8 +18,8 @@
       <mat-card-content>
         <p>{{ game.descVideogame }}</p>
 
-        <mat-chip *ngFor="let genre of game.genres" color="accent" selected>
-          {{ genre }}
+        <mat-chip class="genres" *ngFor="let genre of game.genres" color="accent" selected>
+          {{ genre.name }}
         </mat-chip>
 
         <div class="rating">

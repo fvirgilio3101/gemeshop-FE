@@ -1,0 +1,12 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.minimap.enabled": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "terminal.integrated.fontFamily": "'Fira Code', monospace"
+}
