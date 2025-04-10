@@ -39,7 +39,7 @@ export class VideogameComponent {
   }
 
   open(){
-    this.dialog.open(VideogameFormDialogComponent);
+    this.dialog.open(VideogameFormDialogComponent,{width:'60vw',height:'auto'});
   }
 
 

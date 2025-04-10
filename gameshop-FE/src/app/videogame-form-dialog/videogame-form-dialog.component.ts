@@ -1,13 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { VideogameService } from '../videogame/videogame.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-videogame-form-dialog',
-  imports: [ReactiveFormsModule,MatFormFieldModule],
+  imports: [MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule],
   providers:[VideogameService],
   templateUrl: './videogame-form-dialog.component.html',
   styleUrl: './videogame-form-dialog.component.css'
