@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { VideogameEventService } from '../videogame/videogame-event.service';
 
 @Component({
   selector: 'app-videogame-form-dialog',
@@ -14,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatDialogModule,
     ReactiveFormsModule],
-  providers:[VideogameService],
+  providers:[VideogameEventService],
   templateUrl: './videogame-form-dialog.component.html',
   styleUrl: './videogame-form-dialog.component.css'
 })
@@ -26,11 +27,11 @@ export class VideogameFormDialogComponent implements OnInit,OnDestroy {
 
   constructor(
     private dialog: MatDialogRef<VideogameFormDialogComponent>,
-    private service: VideogameService
+    private service: VideogameEventService
   ){}
 
   ngOnDestroy(): void {
-    this.unsubscriber.unsubscribe();
+    this.service.disposeAll();
   }
 
   ngOnInit(){
@@ -48,10 +49,11 @@ export class VideogameFormDialogComponent implements OnInit,OnDestroy {
   }
 
   save(){
-    const sub = this.service.createVideogame(this.form.value).subscribe(
-      {next:event => this.dialog.close(event)}
-    );
-    this.unsubscriber.add(sub);
+    if(this.form.valid){
+      this.service.saveVideogame(this.form.value);
+      this.dialog.close();
+    }
+
   }
 
   reset(){

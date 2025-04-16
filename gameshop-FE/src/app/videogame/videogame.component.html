@@ -22,10 +22,14 @@
           {{ genre.name }}
         </mat-chip>
 
-        <div class="rating">
+        <div class="rating" (mouseleave)="hoveredRating = 0">
           <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
-            <mat-icon color="warn">
-              {{ i < game.rating ? 'star' : 'star_border' }}
+            <mat-icon
+              color="warn"
+              (click)="rateGame(game.id, i + 1)"
+              (mouseenter)="hoveredRating = i + 1"
+            >
+              {{ (hoveredRating || game.rating) > i ? 'star' : 'star_border' }}
             </mat-icon>
           </ng-container>
         </div>
