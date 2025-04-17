@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { VideogameService } from './videogame.service';
-import { async, Observable } from 'rxjs';
+import {tap, Observable,Subscription} from 'rxjs';
 import { Videogame } from '../model/videogame';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
@@ -10,10 +9,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { VideogameFormDialogComponent } from '../videogame-form-dialog/videogame-form-dialog.component';
 import { VideogameEventService } from './videogame-event.service';
-import { Subscription } from 'rxjs';
 import { RatingService } from './rating.service';
 
 @Component({
@@ -27,7 +25,6 @@ import { RatingService } from './rating.service';
     MatIconModule,
     MatButton
   ],
-  providers:[VideogameEventService,RatingService],
   templateUrl: './videogame.component.html',
   styleUrl: './videogame.component.css'
 })
@@ -51,7 +48,9 @@ export class VideogameComponent implements OnInit,OnDestroy {
   }
 
   open(){
-    const sub =this.dialog.open(VideogameFormDialogComponent,{width:'60vw',height:'auto'}).afterClosed()
+    const sub =this.dialog.open(VideogameFormDialogComponent,{width:'60vw',height:'auto'}).afterClosed().pipe(
+      tap()
+    )
     .subscribe(() => {
       // richiamo il service dopo la chiusura
       this.videogames$ = this.service.readAllVideogame();

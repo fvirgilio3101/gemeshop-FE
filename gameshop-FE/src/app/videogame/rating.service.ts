@@ -11,7 +11,9 @@ export class RatingService{
   constructor(private http:HttpClient){}
 
   rateGame(videogameId: number, userId: number, value: number): Observable<any> {
-  return this.http.post(`${this.baseUrl}/${videogameId}/rate?userId=${userId}&value=${value}`, {});
+  return this.http.post(`${this.baseUrl}/${videogameId}/rate?userId=${userId}&value=${value}`,
+    {},
+    {withCredentials: true,});
 }
 
 }

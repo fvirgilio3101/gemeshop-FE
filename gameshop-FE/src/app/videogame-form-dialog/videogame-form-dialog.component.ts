@@ -15,16 +15,12 @@ import { VideogameEventService } from '../videogame/videogame-event.service';
     MatButtonModule,
     MatDialogModule,
     ReactiveFormsModule],
-  providers:[VideogameEventService],
   templateUrl: './videogame-form-dialog.component.html',
   styleUrl: './videogame-form-dialog.component.css'
 })
 export class VideogameFormDialogComponent implements OnInit,OnDestroy {
 
   form: FormGroup;
-
-  private unsubscriber = new Subscription();
-
   constructor(
     private dialog: MatDialogRef<VideogameFormDialogComponent>,
     private service: VideogameEventService
@@ -41,10 +37,8 @@ export class VideogameFormDialogComponent implements OnInit,OnDestroy {
   private initForm(){
     this.form = new FormGroup({
       titleVideogame: new FormControl(''),
-      genres: new FormControl(),
       priceVideogame: new FormControl(),
       descVideogame: new FormControl(''),
-      rating: new FormControl(),
     });
   }
 
@@ -57,7 +51,7 @@ export class VideogameFormDialogComponent implements OnInit,OnDestroy {
   }
 
   reset(){
-    this.form.reset;
+    this.form.reset();
   }
 
 }
