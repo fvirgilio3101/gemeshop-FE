@@ -1,15 +1,15 @@
 import { Genres } from "./genres";
 
 export class Videogame{
-  id : number;
+  idVideogame : number;
   titleVideogame : string;
   genres : Genres[];
   priceVideogame : number;
   descVideogame : string;
   rating : number;
 
-  constructor(id:number,titleVideogame: string,genres:Genres[],priceVideogame:number,descVideogame:string,rating:number){
-    this.id = id;
+  constructor(idVideogame:number,titleVideogame: string,genres:Genres[],priceVideogame:number,descVideogame:string,rating:number){
+    this.idVideogame = idVideogame;
     this.titleVideogame = titleVideogame;
     this.genres = genres;
     this.priceVideogame = priceVideogame;

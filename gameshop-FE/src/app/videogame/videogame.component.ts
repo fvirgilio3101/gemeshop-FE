@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VideogameService } from './videogame.service';
-import { Observable } from 'rxjs';
+import { async, Observable } from 'rxjs';
 import { Videogame } from '../model/videogame';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
@@ -33,7 +33,7 @@ import { RatingService } from './rating.service';
 })
 export class VideogameComponent implements OnInit,OnDestroy {
 
-  hoveredRating: number = 0;
+  hoveredRating: { [id: number]: number } = {};
   userID = 1;
   videogames$: Observable<Videogame[]>;
 
