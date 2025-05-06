@@ -8,7 +8,7 @@ import { Videogame } from "../model/videogame";
 })
 export class VideogameEventService{
 
-  private realoadSource = new Subject<any>();
+  private realoadSource = new Subject<Videogame>();
   reloadSubject$ = this.realoadSource.asObservable();
   private unsubscriber = new Subscription();
 
@@ -21,16 +21,15 @@ export class VideogameEventService{
 
   readAllVideogame():Observable<Videogame[]>{
     const onShot = this.service.readAllVideogame();
-    return merge(onShot,this.reloadSubject$.pipe(
+    const onChange = this.reloadSubject$.pipe(
       mergeMap(()=>this.service.readAllVideogame())
-    ));
+    );
+    return merge(onShot,onChange);
   }
 
   saveVideogame(videogame:Videogame){
     const sub = this.service.createVideogame(videogame).subscribe(
-      {next:p => {this.realoadSource.next(p)
-        console.log(p);
-      }}
+      p => this.realoadSource.next(p)
     )
     this.unsubscriber.add(sub);
   }

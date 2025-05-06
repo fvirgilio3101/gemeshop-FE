@@ -48,14 +48,7 @@ export class VideogameComponent implements OnInit,OnDestroy {
   }
 
   open(){
-    const sub =this.dialog.open(VideogameFormDialogComponent,{width:'60vw',height:'auto'}).afterClosed().pipe(
-      tap()
-    )
-    .subscribe(() => {
-      // richiamo il service dopo la chiusura
-      this.videogames$ = this.service.readAllVideogame();
-    });
-    this.unsubscriber.add(sub);
+    return this.dialog.open(VideogameFormDialogComponent,{width:'60vw',height:'auto'}).afterClosed()
   }
 
   rateGame(videogameId: number, value: number) {
