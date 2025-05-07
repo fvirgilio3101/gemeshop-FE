@@ -27,7 +27,6 @@ export class VideogameFormDialogComponent implements OnInit,OnDestroy {
   private service = inject(VideogameEventService);
 
   ngOnDestroy(): void {
-    this.service.disposeAll();
   }
 
   ngOnInit(){

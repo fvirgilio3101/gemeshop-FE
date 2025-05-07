@@ -1,29 +1,80 @@
-.catalog-container {
-  padding: 24px;
+/* Toolbar */
+mat-toolbar {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 0 16px;
 }
 
+/* Pulsante "Aggiungi Videogioco" */
+button[mat-flat-button] {
+  font-weight: 500;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Contenitore principale */
+.catalog-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  padding: 24px;
+}
+
+/* Card di ogni gioco */
 .game-card {
-  width: 300px;
+  padding: 8px;
+  border-radius: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.genres{
-  margin-right: 12px;
+.game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
+/* Chip dei generi */
+mat-chip.genres {
+  margin: 4px 4px 4px 0;
+  font-size: 12px;
+}
+
+/* Valutazione con stelle */
 .rating {
   margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
 }
 
+/* Spinner */
 .loading {
   display: flex;
   justify-content: center;
-  padding: 32px;
+  align-items: center;
+  padding: 60px;
 }
 
-.spacer {
-  flex: 1 1 auto;
+/* Responsive media query */
+@media (max-width: 600px) {
+  .catalog-container {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  mat-toolbar {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  button[mat-flat-button] {
+    width: 100%;
+    justify-content: center;
+  }
 }
