@@ -10,6 +10,10 @@
             <input type="password" id="password" [(ngModel)]="password" name="password" required>
         </div>
         <button type="submit">Accedi</button>
-        <div class="error" *ngIf="errorMessage"> {{errorMessage}} </div>
+        @if (errorMessage) {
+            <div class="error">
+              {{ errorMessage }}
+            </div>
+          }
     </form>
     </div>
