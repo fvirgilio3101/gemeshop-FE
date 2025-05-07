@@ -1,23 +1,20 @@
-import { Injectable } from "@angular/core";
+import { DestroyRef, Injectable,inject } from "@angular/core";
 import { VideogameService } from "./videogame.service";
 import { merge, mergeMap, Observable, Subject, Subscription } from "rxjs";
 import { Videogame } from "../model/videogame";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Injectable({
   providedIn:'root'
 })
 export class VideogameEventService{
 
-  private realoadSource = new Subject<Videogame>();
-  reloadSubject$ = this.realoadSource.asObservable();
-  private unsubscriber = new Subscription();
+  private readonly service = inject(VideogameService);
+  private readonly destroyRef = inject(DestroyRef);
 
+  private reloadSource = new Subject<Videogame>();
+  reloadSubject$ = this.reloadSource.asObservable();
 
-  constructor(private service:VideogameService){}
-
-  disposeAll() {
-    this.unsubscriber.unsubscribe();
-  }
 
   readAllVideogame():Observable<Videogame[]>{
     const onShot = this.service.readAllVideogame();
@@ -28,10 +25,13 @@ export class VideogameEventService{
   }
 
   saveVideogame(videogame:Videogame){
-    const sub = this.service.createVideogame(videogame).subscribe(
-      p => this.realoadSource.next(p)
+    const sub = this.service.createVideogame(videogame)
+    .pipe(
+      takeUntilDestroyed(this.destroyRef)
     )
-    this.unsubscriber.add(sub);
+    .subscribe(
+      p => this.reloadSource.next(p)
+    );
   }
 
 }

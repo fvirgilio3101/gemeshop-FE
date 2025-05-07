@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, effect, DestroyRef} from '@angular/core';
+import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import {tap, Observable,Subscription} from 'rxjs';
 import { Videogame } from '../model/videogame';
@@ -16,6 +17,7 @@ import { RatingService } from './rating.service';
 
 @Component({
   selector: 'app-videogame',
+  standalone: true,
   imports: [ReactiveFormsModule,
     CommonModule,
     MatToolbarModule,
@@ -28,38 +30,32 @@ import { RatingService } from './rating.service';
   templateUrl: './videogame.component.html',
   styleUrl: './videogame.component.css'
 })
-export class VideogameComponent implements OnInit,OnDestroy {
+export class VideogameComponent {
+
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly gameService = inject(VideogameEventService);
+  private readonly ratingService = inject(RatingService);
+  private readonly dialog = inject(MatDialog);
 
   hoveredRating: { [id: number]: number } = {};
   userID = 1;
-  videogames$: Observable<Videogame[]>;
+  videogames$ = this.gameService.readAllVideogame();
 
-  private unsubscriber = new Subscription();
-
-  constructor(private service:VideogameEventService,private dialog: MatDialog,private ratingService: RatingService){}
-
-  ngOnDestroy(): void {
-    this.service.disposeAll();
-    this.unsubscriber.unsubscribe();
-  }
-
-  ngOnInit(): void {
-    this.videogames$ = this.service.readAllVideogame();
-  }
 
   open(){
-    return this.dialog.open(VideogameFormDialogComponent,{width:'60vw',height:'auto'}).afterClosed()
+    return this.dialog.open(VideogameFormDialogComponent,{width:'60vw',height:'auto'})
+      .afterClosed()
+      .pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
   }
 
   rateGame(videogameId: number, value: number) {
-    const sub = this.ratingService.rateGame(videogameId, this.userID, value).subscribe({
-      next: () => {
-        // ricarica l’elenco per aggiornare i rating
-        this.videogames$ = this.service.readAllVideogame();
-      }
-    });
-    this.unsubscriber.add(sub);
-
+    this.ratingService.rateGame(videogameId, this.userID, value).pipe(
+      takeUntilDestroyed(this.destroyRef))
+    .subscribe(
+      {next: () => this.videogames$ = this.gameService.readAllVideogame()}
+    );
   }
 
 

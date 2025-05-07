@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject} from '@angular/core';
 import { Observable } from 'rxjs';
 import { Videogame } from '../model/videogame';
 
@@ -7,9 +7,9 @@ import { Videogame } from '../model/videogame';
   providedIn: 'root',
 })
 export class VideogameService {
-  baseUrl = 'http://localhost:8082/it.ecubit.gameshop/api/videogame';
 
-  constructor(private http: HttpClient) {}
+  private readonly http = inject(HttpClient);
+  baseUrl = 'http://localhost:8082/it.ecubit.gameshop/api/videogame';
 
   readAllVideogame(): Observable<Videogame[]> {
     return this.http.get<Videogame[]>(this.baseUrl, { withCredentials: true });
