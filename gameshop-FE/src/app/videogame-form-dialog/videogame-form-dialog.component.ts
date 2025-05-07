@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { VideogameService } from '../videogame/videogame.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -22,9 +22,9 @@ export class VideogameFormDialogComponent implements OnInit,OnDestroy {
 
   form: FormGroup;
   constructor(
-    private dialog: MatDialogRef<VideogameFormDialogComponent>,
-    private service: VideogameEventService
   ){}
+  private dialog = inject(MatDialogRef<VideogameFormDialogComponent>);
+  private service = inject(VideogameEventService);
 
   ngOnDestroy(): void {
     this.service.disposeAll();

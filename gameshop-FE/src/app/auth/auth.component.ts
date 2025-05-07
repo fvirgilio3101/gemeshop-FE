@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -15,8 +15,7 @@ export class AuthComponent {
   password = '';
   errorMessage = '';
 
-  constructor(private http: HttpClient) {}
-
+ private http = inject(HttpClient);
   onSubmit() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
