@@ -1,0 +1,28 @@
+import { inject, Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Videogame } from "../model/videogame";
+import { HttpClient, HttpParams } from "@angular/common/http";
+
+@Injectable({
+  providedIn:'root'
+})
+export class VideogameSearchService{
+
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = 'http://localhost:8082/it.ecubit.gameshop/api/index/'
+  readFilteredVideogames(filters: any): Observable<Videogame[]> {
+    let params = new HttpParams();
+
+    if (filters.title) {
+      params = params.set('title', filters.title);
+    }
+    if (filters.maxPrice) {
+      params = params.set('maxPrice', filters.maxPrice.toString());
+    }
+    if (filters.releaseDate) {
+      params = params.set('releaseAfter', filters.releaseDate.toString());
+    }
+
+    return this.http.get<Videogame[]>(`${this.apiUrl}/filter`, { params });
+  }
+}

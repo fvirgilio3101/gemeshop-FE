@@ -19,17 +19,38 @@ button[mat-flat-button] {
 
 /* Contenitore principale */
 .catalog-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  display: flex;
   gap: 24px;
   padding: 24px;
+  flex-wrap: wrap; /* Consente di ridurre la dimensione su schermi più piccoli */
+}
+
+/* Contenitore dei filtri (pannello laterale) */
+.filters-container {
+  flex: 0 0 300px; /* Fissa la larghezza dei filtri */
+  padding: 16px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.filters-container mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
 }
 
 /* Card di ogni gioco */
 .game-card {
-  padding: 8px;
+  padding: 16px;
   border-radius: 16px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
 }
 
 .game-card:hover {
@@ -61,10 +82,15 @@ mat-chip.genres {
 }
 
 /* Responsive media query */
-@media (max-width: 600px) {
+@media (max-width: 1200px) {
   .catalog-container {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     padding: 16px;
+  }
+
+  .filters-container {
+    width: 100%; /* Aumenta la larghezza su schermi piccoli */
+    margin-bottom: 24px;
   }
 
   mat-toolbar {
@@ -76,5 +102,33 @@ mat-chip.genres {
   button[mat-flat-button] {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .filters-container {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .catalog-container {
+    flex-direction: column; /* Tutto in colonna per schermi piccoli */
+    gap: 16px;
+  }
+
+  mat-toolbar {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  button[mat-flat-button] {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filter-actions {
+    flex-direction: column;
+    gap: 8px;
   }
 }

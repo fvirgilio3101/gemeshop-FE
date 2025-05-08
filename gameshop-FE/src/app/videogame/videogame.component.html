@@ -8,41 +8,77 @@
 </mat-toolbar>
 
 <div class="catalog-container">
-  @if (videogames$ | async; as videogames) {
-    @for (game of videogames; track game.idVideogame) {
-      <mat-card class="game-card mat-elevation-z4">
-        <mat-card-header>
-          <mat-card-title>{{ game.titleVideogame }}</mat-card-title>
-          <mat-card-subtitle>{{ game.priceVideogame | currency:'EUR' }}</mat-card-subtitle>
-          <mat-card-subtitle>{{ game.releaseDateVideogame | date:'dd MMM yyyy' }}</mat-card-subtitle>
+  <div class="filters-container">
+    <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+      <mat-form-field appearance="fill">
+        <mat-label>Titolo</mat-label>
+        <input matInput formControlName="title" placeholder="Cerca per titolo">
+      </mat-form-field>
 
-        </mat-card-header>
+      <mat-form-field appearance="fill">
+        <mat-label>Prezzo massimo</mat-label>
+        <input matInput type="number" formControlName="maxPrice" placeholder="Prezzo massimo">
+      </mat-form-field>
 
+      <mat-form-field appearance="fill">
+        <mat-label>Rating medio</mat-label>
+        <mat-select formControlName="averageRating" placeholder="Rating">
+          <mat-option value="1">1 stella</mat-option>
+          <mat-option value="2">2 stelle</mat-option>
+          <mat-option value="3">3 stelle</mat-option>
+          <mat-option value="4">4 stelle</mat-option>
+          <mat-option value="5">5 stelle</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-card-content>
-          <p>{{ game.descVideogame }}</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Data di rilascio</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="releaseDate" placeholder="Seleziona una data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-          @for (genre of game.genres; track genre.name) {
-            <mat-chip class="genres" color="accent" selected>
-              {{ genre.name }}
-            </mat-chip>
-          }
+      <div class="filter-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="filterForm.invalid">Applica Filtri</button>
+        <button mat-raised-button color="warn" type="button" (click)="resetFilters()">Resetta</button>
+      </div>
+    </form>
+  </div>
 
-          @for (star of [1, 2, 3, 4, 5]; track $index) {
-            <mat-icon
-              color="warn"
-              (click)="rateGame(game.idVideogame, $index + 1)"
-              (mouseenter)="hoveredRating[game.idVideogame] = $index + 1"
-            >
-              {{ (hoveredRating[game.idVideogame] || game.rating) > $index ? 'star' : 'star_border' }}
-            </mat-icon>
-          }
-        </mat-card-content>
-      </mat-card>
+  <div class="games-list">
+    @if (videogames$ | async; as videogames) {
+      @for (game of videogames; track game.idVideogame) {
+        <mat-card class="game-card mat-elevation-z4">
+          <mat-card-header>
+            <mat-card-title>{{ game.titleVideogame }}</mat-card-title>
+            <mat-card-subtitle>{{ game.priceVideogame | currency:'EUR' }}</mat-card-subtitle>
+            <mat-card-subtitle>{{ game.releaseDateVideogame | date:'dd MMM yyyy' }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p>{{ game.descVideogame }}</p>
+            @for (genre of game.genres; track genre.name) {
+              <mat-chip class="genres" color="accent" selected>
+                {{ genre.name }}
+              </mat-chip>
+            }
+
+            @for (star of [1, 2, 3, 4, 5]; track $index) {
+              <mat-icon
+                color="warn"
+                (click)="rateGame(game.idVideogame, $index + 1)"
+                (mouseenter)="hoveredRating[game.idVideogame] = $index + 1"
+              >
+                {{ (hoveredRating[game.idVideogame] || game.rating) > $index ? 'star' : 'star_border' }}
+              </mat-icon>
+            }
+          </mat-card-content>
+        </mat-card>
+      }
+    } @else {
+      <div class="loading">
+        <mat-spinner></mat-spinner>
+      </div>
     }
-  } @else {
-    <div class="loading">
-      <mat-spinner></mat-spinner>
-    </div>
-  }
+  </div>
 </div>
