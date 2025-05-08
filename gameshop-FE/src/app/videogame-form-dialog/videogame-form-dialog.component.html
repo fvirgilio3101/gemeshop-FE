@@ -3,12 +3,12 @@
 <form [formGroup]="form" (ngSubmit)="save()" class="videogame-form">
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Titolo</mat-label>
-    <input matInput formControlName="titleVideogame" placeholder="Inserisci il titolo">
+    <input matInput formControlName="titleVideogame" placeholder="Inserisci il titolo" />
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Prezzo (€)</mat-label>
-    <input matInput type="number" formControlName="priceVideogame" placeholder="Prezzo">
+    <input matInput type="number" formControlName="priceVideogame" placeholder="Prezzo" />
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
@@ -18,9 +18,9 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Data</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="releaseDateVideogame" required>
+    <input matInput [matDatepicker]="picker" formControlName="releaseDateVideogame" />
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker disabled="false"></mat-datepicker>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
   <div class="actions">

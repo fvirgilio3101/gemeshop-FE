@@ -9,15 +9,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatButtonModule} from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { VideogameFormDialogComponent } from '../videogame-form-dialog/videogame-form-dialog.component';
 import { VideogameEventService } from './videogame-event.service';
 import { RatingService } from './rating.service';
 import { VideogameSearchService } from './videogame-search.service';
-import { MatNativeDateModule, MatOption } from '@angular/material/core';
+import { MatNativeDateModule, MatOption, MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 
 @Component({
@@ -30,10 +30,10 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
     MatProgressSpinnerModule,
     MatCardModule,
     MatIconModule,
-    MatButton,
+    MatButtonModule,
     MatFormFieldModule,
-    MatInput,
-    MatOption,
+    MatInputModule,
+    MatOptionModule,
     MatDatepickerModule,
     MatNativeDateModule,
   ],

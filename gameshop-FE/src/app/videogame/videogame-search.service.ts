@@ -9,20 +9,20 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 export class VideogameSearchService{
 
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8082/it.ecubit.gameshop/api/index/'
+  private readonly apiUrl = 'http://localhost:8082/it.ecubit.gameshop/api/index'
   readFilteredVideogames(filters: any): Observable<Videogame[]> {
     let params = new HttpParams();
 
     if (filters.title) {
-      params = params.set('title', filters.title);
+      params = params.set('keyword', filters.title);
     }
     if (filters.maxPrice) {
-      params = params.set('maxPrice', filters.maxPrice.toString());
+      params = params.set('price', filters.maxPrice.toString());
     }
     if (filters.releaseDate) {
       params = params.set('releaseAfter', filters.releaseDate.toString());
     }
 
-    return this.http.get<Videogame[]>(`${this.apiUrl}/filter`, { params });
+    return this.http.get<Videogame[]>(`${this.apiUrl}/filter`, { params, withCredentials : true });
   }
 }
