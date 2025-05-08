@@ -16,6 +16,14 @@
     <textarea matInput formControlName="descVideogame" placeholder="Descrizione del gioco"></textarea>
   </mat-form-field>
 
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Data di rilascio</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="releaseDateVideogame" placeholder="Scegli la data">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  
+
   <div class="actions">
     <button mat-flat-button color="primary" type="submit">Salva</button>
     <button mat-stroked-button color="warn" type="button" (click)="reset()">Reset</button>

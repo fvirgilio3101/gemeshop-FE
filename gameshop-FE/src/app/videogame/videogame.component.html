@@ -14,7 +14,10 @@
         <mat-card-header>
           <mat-card-title>{{ game.titleVideogame }}</mat-card-title>
           <mat-card-subtitle>{{ game.priceVideogame | currency:'EUR' }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ game.releaseDateVideogame | date:'dd MMM yyyy' }}</mat-card-subtitle>
+
         </mat-card-header>
+
 
         <mat-card-content>
           <p>{{ game.descVideogame }}</p>
