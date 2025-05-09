@@ -14,15 +14,15 @@ export class VideogameSearchService{
     let params = new HttpParams();
 
     if (filters.title) {
-      params = params.set('keyword', filters.title);
+      params = params.set('titleVideogame', filters.title);
     }
     if (filters.maxPrice) {
-      params = params.set('price', filters.maxPrice.toString());
+      params = params.set('priceVideogame', filters.maxPrice.toString());
     }
     if (filters.releaseDate) {
-      params = params.set('releaseAfter', filters.releaseDate.toString());
+      params = params.set('releaseDateVideogame', filters.releaseDate.toString());
     }
 
-    return this.http.get<Videogame[]>(`${this.apiUrl}/filter`, { params, withCredentials : true });
+    return this.http.get<Videogame[]>(`${this.apiUrl}/filter`, { params,withCredentials:true });
   }
 }
