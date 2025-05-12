@@ -1,41 +1,51 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject,DestroyRef,OnInit} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import {Observable} from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
+
 import { Videogame } from '../model/videogame';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
-import {MatButton, MatButtonModule} from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { VideogameFormDialogComponent } from '../videogame-form-dialog/videogame-form-dialog.component';
+
 import { VideogameEventService } from './videogame-event.service';
 import { RatingService } from './rating.service';
 import { VideogameSearchService } from './videogame-search.service';
-import { MatNativeDateModule, MatOption, MatOptionModule } from '@angular/material/core';
+
+// Angular Material modules
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput, MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-videogame',
   standalone: true,
-  imports: [ReactiveFormsModule,
+  imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
     MatChipsModule,
     MatProgressSpinnerModule,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatOptionModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDividerModule
   ],
   templateUrl: './videogame.component.html',
   styleUrl: './videogame.component.css'
@@ -46,51 +56,47 @@ export class VideogameComponent implements OnInit {
   private readonly gameService = inject(VideogameEventService);
   private readonly dialog = inject(MatDialog);
   private readonly searchService = inject(VideogameSearchService);
-  private readonly ratingService = inject(RatingService)
-
+  private readonly ratingService = inject(RatingService);
 
   hoveredRating: { [id: number]: number } = {};
   userID = 1;
 
-  filterForm: FormGroup  = new FormGroup({
+  filterForm: FormGroup = new FormGroup({
     title: new FormControl(''),
     maxPrice: new FormControl(null),
     averageRating: new FormControl(null),
-    releaseDate:new FormControl(null)
+    releaseDate: new FormControl(null)
   });
 
-  videogames$: Observable<Videogame[]>; // Lista dei videogiochi
+  videogames$: Observable<Videogame[]>;
 
-
-
-  ngOnInit(){
+  ngOnInit() {
     this.videogames$ = this.gameService.readAllVideogame();
   }
 
   applyFilters() {
     const filters = this.filterForm.value;
-    this.videogames$=this.searchService.readFilteredVideogames(filters)
+    this.videogames$ = this.searchService.readFilteredVideogames(filters);
   }
 
-  // Funzione per resettare i filtri
   resetFilters() {
     this.filterForm.reset();
-    this.videogames$ = this.gameService.readAllVideogame();  // Ricarica tutti i videogiochi
+    this.videogames$ = this.gameService.readAllVideogame();
   }
 
   open() {
-    return this.dialog.open(VideogameFormDialogComponent, { width: '60vw', height: 'auto' })
-      .afterClosed()
+    return this.dialog.open(VideogameFormDialogComponent, {
+      width: '60vw',
+      height: 'auto'
+    }).afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   rateGame(videogameId: number, value: number) {
     this.ratingService.rateGame(videogameId, this.userID, value).pipe(
-      takeUntilDestroyed(this.destroyRef))
-    .subscribe(
-      {next: () => this.videogames$ = this.gameService.readAllVideogame()}
-    );
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: () => this.videogames$ = this.gameService.readAllVideogame()
+    });
   }
-
-
 }
