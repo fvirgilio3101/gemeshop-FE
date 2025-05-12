@@ -1,10 +1,12 @@
 <mat-toolbar color="primary">
   Catalogo Videogiochi
   <span class="spacer"></span>
+  @if(isLoggedIn){
   <button mat-flat-button color="accent" (click)="open()">
     <mat-icon>add</mat-icon>
     Aggiungi Videogioco
   </button>
+}
 </mat-toolbar>
 
 <div class="catalog-container">
@@ -67,12 +69,14 @@
               </mat-chip>
             }
 
+            
             <div class="rating">
               @for (star of [1, 2, 3, 4, 5]; track $index) {
                 <mat-icon
                   color="warn"
-                  (click)="rateGame(game.idVideogame, $index + 1)"
                   (mouseenter)="hoveredRating[game.idVideogame] = $index + 1"
+                  [class.disabled-icon]="!isLoggedIn"
+                  (click)="isLoggedIn && rateGame(game.idVideogame, $index + 1)"
                 >
                   {{ (hoveredRating[game.idVideogame] || game.rating) > $index ? 'star' : 'star_border' }}
                 </mat-icon>

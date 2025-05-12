@@ -1,0 +1,65 @@
+<div class="register-container">
+  <mat-card class="register-card">
+    <h2 mat-card-title>Registrati</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nome</mat-label>
+          <input matInput type="text" [(ngModel)]="name" name="name" required />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Cognome</mat-label>
+          <input matInput type="text" [(ngModel)]="surname" name="surname" required />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [(ngModel)]="email" name="email" required />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" [(ngModel)]="username" name="username" required />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" [(ngModel)]="password" name="password" required />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Indirizzo</mat-label>
+          <input matInput type="text" [(ngModel)]="address" name="address" required />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Numero di telefono</mat-label>
+          <input matInput type="text" [(ngModel)]="phone_number" name="phone_number" required />
+        </mat-form-field>
+      </div>
+
+      @if(errorMessage){
+       <div class="error-message">
+        <mat-icon color="warn">error</mat-icon>
+        <span>{{errorMessage}}</span>
+       </div>
+      }
+
+      <button mat-raised-button color="primary" type="submit">Registrati</button>
+    </form>
+  </mat-card>
+</div>

@@ -32,7 +32,7 @@ export class AuthComponent {
       .subscribe({
         next: (response) => {
           console.log('Login response', response);
-          localStorage.setItem('isLoggedIn', 'true'); // salva stato login
+          sessionStorage.setItem('isLoggedIn', 'true');
           this.errorMessage = '';
           window.location.href = '/videogames';
         },

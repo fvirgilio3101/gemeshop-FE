@@ -60,18 +60,22 @@ export class VideogameComponent implements OnInit {
 
   hoveredRating: { [id: number]: number } = {};
   userID = 1;
+  isLoggedIn : boolean = false;
 
   filterForm: FormGroup = new FormGroup({
     title: new FormControl(''),
     maxPrice: new FormControl(null),
     averageRating: new FormControl(null),
-    releaseDate: new FormControl(null)
+    releaseDate: new FormControl(null),
+
   });
 
   videogames$: Observable<Videogame[]>;
 
   ngOnInit() {
     this.videogames$ = this.gameService.readAllVideogame();
+     const loggedInStatus = sessionStorage.getItem('isLoggedIn');
+     this.isLoggedIn = loggedInStatus === 'true';
   }
 
   applyFilters() {

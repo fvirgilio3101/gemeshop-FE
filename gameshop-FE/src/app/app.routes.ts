@@ -13,6 +13,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./auth/auth.component').then((m) => m.AuthComponent),
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirigi alla pagina di login di default
-  { path: '**', redirectTo: 'login' }, // Redirigi alle pagine di login se la rotta non esiste
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./register/register.component').then((m) => m.RegisterComponent),
+  },
+  { path: '', redirectTo: 'videogames', pathMatch: 'full' }, // Redirigi alla pagina di login di default
+  { path: '**', redirectTo: 'videogames' }, // Redirigi alle pagine di login se la rotta non esiste
 ];
