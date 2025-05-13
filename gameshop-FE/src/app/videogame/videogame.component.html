@@ -14,7 +14,7 @@
       </button>
 
       <mat-menu #userMenu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
         </button>
@@ -82,8 +82,8 @@
   <mat-divider vertical class="custom-divider"></mat-divider>
 
   <div class="games-list">
-    @if (videogames$ | async; as videogames) {
-      @for (game of videogames; track game.idVideogame) {
+    @if (videogames_().length >0;) {
+      @for (game of videogames_(); track game.idVideogame) {
         <mat-card class="game-card mat-elevation-z4">
           <mat-card-header>
             <mat-card-title>{{ game.titleVideogame }}</mat-card-title>

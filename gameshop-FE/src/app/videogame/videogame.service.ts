@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject} from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, inject, signal} from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { Videogame } from '../model/videogame';
 
 @Injectable({
@@ -10,21 +10,30 @@ export class VideogameService {
 
   private readonly http = inject(HttpClient);
   baseUrl = 'http://localhost:8082/it.ecubit.gameshop/api/videogame';
+   videogameSignal = signal<Videogame[]>([]);
 
-  readAllVideogame(): Observable<Videogame[]> {
-    return this.http.get<Videogame[]>(this.baseUrl, { withCredentials: true });
+  videogames = this.videogameSignal.asReadonly();
+
+  readAllVideogame(){
+    this.http.get<Videogame[]>(this.baseUrl, {withCredentials : true}).subscribe(data => this.videogameSignal.set(data));
   }
 
-  createVideogame(videogame: Videogame): Observable<Videogame> {
+  createVideogame(videogame: Videogame){
     return this.http.post<Videogame>(this.baseUrl, videogame, {
       withCredentials: true,
-    });
+    }).pipe(tap(videogame => this.videogameSignal.update(list => [...list, videogame])))
   }
 
   updateVideogame(videogame: Videogame): Observable<Videogame> {
     return this.http.put<Videogame>(this.baseUrl, videogame, {
       withCredentials: true,
-    });
+    }).pipe(
+      tap((updatedGame : Videogame) => {
+        this.videogameSignal.set(
+          this.videogameSignal().map(game => game.idVideogame === updatedGame.idVideogame ? updatedGame : game)
+        )
+      })
+    );
   }
 
   deleteVideogame(videogame: Videogame): void {

@@ -61,13 +61,13 @@ export class RegisterComponent {
         catchError((error) => {
           this.errorMessage = 'Errore durante la registrazione. Riprova.';
           console.error('Errore nella registrazione', error);
-          return of(null); // Gestisci l'errore in modo elegante
+          return of(null); 
         })
       )
       .subscribe((response) => {
         if (response) {
           console.log('Registrazione avvenuta con successo', response);
-          this.router.navigate(['/login']); // Reindirizza all'accesso
+          this.router.navigate(['/login']);
         }
       });
   }

@@ -16,13 +16,13 @@ export class VideogameEventService{
   reloadSubject$ = this.reloadSource.asObservable();
 
 
-  readAllVideogame():Observable<Videogame[]>{
-    const onShot = this.service.readAllVideogame();
-    const onChange = this.reloadSubject$.pipe(
-      mergeMap(()=>this.service.readAllVideogame())
-    );
-    return merge(onShot,onChange);
-  }
+  // readAllVideogame():Observable<Videogame[]>{
+  //   const onShot = this.service.readAllVideogame();
+  //   const onChange = this.reloadSubject$.pipe(
+  //     mergeMap(()=>this.service.readAllVideogame())
+  //   );
+  //   return merge(onShot,onChange);
+  // }
 
   saveVideogame(videogame:Videogame){
     const sub = this.service.createVideogame(videogame)

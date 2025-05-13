@@ -28,6 +28,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
+import { VideogameService } from './videogame.service';
 
 @Component({
   selector: 'app-videogame',
@@ -48,64 +49,74 @@ import { MatMenuModule } from '@angular/material/menu';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDividerModule,
-        MatToolbarModule,
+    MatToolbarModule,
     MatMenuModule,
     RouterModule,
   ],
   templateUrl: './videogame.component.html',
-  styleUrl: './videogame.component.css'
+  styleUrl: './videogame.component.css',
 })
 export class VideogameComponent implements OnInit {
-
   private readonly destroyRef = inject(DestroyRef);
-  private readonly gameService = inject(VideogameEventService);
+  private readonly gameService = inject(VideogameService);
   private readonly dialog = inject(MatDialog);
   private readonly searchService = inject(VideogameSearchService);
   private readonly ratingService = inject(RatingService);
 
   hoveredRating: { [id: number]: number } = {};
   userID = 1;
-  isLoggedIn : boolean = false;
+  isLoggedIn: boolean = false;
 
   filterForm: FormGroup = new FormGroup({
     title: new FormControl(''),
     maxPrice: new FormControl(null),
     averageRating: new FormControl(null),
     releaseDate: new FormControl(null),
-
   });
 
-  videogames$: Observable<Videogame[]>;
+  videogames_ = this.gameService.videogameSignal;
 
   ngOnInit() {
-    this.videogames$ = this.gameService.readAllVideogame();
-     const loggedInStatus = sessionStorage.getItem('isLoggedIn');
-     this.isLoggedIn = loggedInStatus === 'true';
+    const loggedInStatus = sessionStorage.getItem('isLoggedIn');
+    this.isLoggedIn = loggedInStatus === 'true';
+    this.gameService.readAllVideogame();
   }
 
   applyFilters() {
     const filters = this.filterForm.value;
-    this.videogames$ = this.searchService.readFilteredVideogames(filters);
+    this.searchService
+      .readFilteredVideogames(filters)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((filtered) => this.videogames_.set(filtered));
   }
 
   resetFilters() {
     this.filterForm.reset();
-    this.videogames$ = this.gameService.readAllVideogame();
+    this.gameService.readAllVideogame();
   }
 
   open() {
-    return this.dialog.open(VideogameFormDialogComponent, {
-      width: '60vw',
-      height: 'auto'
-    }).afterClosed()
+    return this.dialog
+      .open(VideogameFormDialogComponent, {
+        width: '60vw',
+        height: 'auto',
+      })
+      .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   rateGame(videogameId: number, value: number) {
-    this.ratingService.rateGame(videogameId, this.userID, value).pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe({
-      next: () => this.videogames$ = this.gameService.readAllVideogame()
-    });
+    this.ratingService
+      .rateGame(videogameId, this.userID, value)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => this.gameService.readAllVideogame(),
+      });
+  }
+  logout() {
+    sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('userID');
+    this.isLoggedIn = false;
+    window.location.href = '/videogames';
   }
 }

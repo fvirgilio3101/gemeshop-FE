@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { VideogameEventService } from '../videogame/videogame-event.service';
+import { VideogameService } from '../videogame/videogame.service';
 
 @Component({
   selector: 'app-videogame-form-dialog',
@@ -28,7 +29,7 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   private dialog = inject(MatDialogRef<VideogameFormDialogComponent>);
-  private service = inject(VideogameEventService);
+  private service = inject(VideogameService);
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -43,8 +44,9 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.form.valid) {
-      this.service.saveVideogame(this.form.value);
-      this.dialog.close();
+      this.service.createVideogame(this.form.value).subscribe(() => {
+        this.dialog.close(); 
+      });
     }
   }
 
