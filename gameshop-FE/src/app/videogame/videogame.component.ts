@@ -26,6 +26,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-videogame',
@@ -45,7 +47,10 @@ import { MatDialog } from '@angular/material/dialog';
     MatOptionModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDividerModule
+    MatDividerModule,
+        MatToolbarModule,
+    MatMenuModule,
+    RouterModule,
   ],
   templateUrl: './videogame.component.html',
   styleUrl: './videogame.component.css'

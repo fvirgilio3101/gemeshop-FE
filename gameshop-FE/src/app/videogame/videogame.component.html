@@ -1,13 +1,43 @@
 <mat-toolbar color="primary">
-  Catalogo Videogiochi
+  <span>Catalogo Videogiochi</span>
   <span class="spacer"></span>
-  @if(isLoggedIn){
-  <button mat-flat-button color="accent" (click)="open()">
-    <mat-icon>add</mat-icon>
-    Aggiungi Videogioco
-  </button>
-}
+
+  @if (isLoggedIn) {
+    <div class="toolbar-actions">
+      <button mat-flat-button color="accent" (click)="open()">
+        <mat-icon>add</mat-icon>
+        Aggiungi Videogioco
+      </button>
+
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  } @else {
+    <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item [routerLink]="'/login'">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </button>
+      <button mat-menu-item [routerLink]="'/register'">
+        <mat-icon>person_add</mat-icon>
+        <span>Registrati</span>
+      </button>
+    </mat-menu>
+  }
 </mat-toolbar>
+
 
 <div class="catalog-container">
   <div class="filters-container">
