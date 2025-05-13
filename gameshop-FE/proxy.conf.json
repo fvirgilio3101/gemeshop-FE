@@ -1,0 +1,10 @@
+{
+  "/giantbomb-api": {
+    "target": "https://www.giantbomb.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/giantbomb-api": ""
+    }
+  }
+}
