@@ -1,5 +1,5 @@
 
-/*import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 
 export const giantBombInterceptor: HttpInterceptorFn = (req, next) => {
  const isGiantBomb = req.url.includes('giantbomb.com/api');
@@ -17,4 +17,4 @@ export const giantBombInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req);
   }
 
-*/
+

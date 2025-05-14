@@ -86,6 +86,7 @@ export class VideogameComponent implements OnInit {
     this.giantBombService.getGames().pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(data => this.giantBomb_.set(data))
+    this.giantBombService.fetchGames();
   }
 
   applyFilters() {
