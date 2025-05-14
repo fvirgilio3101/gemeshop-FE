@@ -29,7 +29,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { VideogameService } from './videogame.service';
-import { GiantBombService } from './giantbomb.service';
 
 @Component({
   selector: 'app-videogame',
@@ -60,7 +59,6 @@ import { GiantBombService } from './giantbomb.service';
 export class VideogameComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly gameService = inject(VideogameService);
-  private readonly giantBombService = inject(GiantBombService);
   private readonly dialog = inject(MatDialog);
   private readonly searchService = inject(VideogameSearchService);
   private readonly ratingService = inject(RatingService);
@@ -77,16 +75,11 @@ export class VideogameComponent implements OnInit {
   });
 
   videogames_ = this.gameService.videogameSignal;
-  giantBomb_ = this.giantBombService.videogameSignal;
 
   ngOnInit() {
     const loggedInStatus = sessionStorage.getItem('isLoggedIn');
     this.isLoggedIn = loggedInStatus === 'true';
-    //this.gameService.readAllVideogame();
-    this.giantBombService.getGames().pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(data => this.giantBomb_.set(data))
-    this.giantBombService.fetchGames();
+    this.gameService.readAllVideogame();
   }
 
   applyFilters() {
