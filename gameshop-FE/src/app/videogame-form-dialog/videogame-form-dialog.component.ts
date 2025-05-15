@@ -6,7 +6,6 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { VideogameEventService } from '../videogame/videogame-event.service';
 import { VideogameService } from '../videogame/videogame.service';
 
 @Component({
@@ -45,7 +44,7 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
   save() {
     if (this.form.valid) {
       this.service.createVideogame(this.form.value).subscribe(() => {
-        this.dialog.close(); 
+        this.dialog.close();
       });
     }
   }
