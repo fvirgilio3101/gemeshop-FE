@@ -6,7 +6,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { VideogameService } from '../videogame/videogame.service';
+import { VideogameService } from '../service/videogame/videogame.service';
 
 @Component({
   selector: 'app-videogame-form-dialog',
@@ -27,8 +27,8 @@ import { VideogameService } from '../videogame/videogame.service';
 export class VideogameFormDialogComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
-  private dialog = inject(MatDialogRef<VideogameFormDialogComponent>);
-  private service = inject(VideogameService);
+  private readonly dialog = inject(MatDialogRef<VideogameFormDialogComponent>);
+  private readonly service = inject(VideogameService);
 
   ngOnInit() {
     this.form = new FormGroup({

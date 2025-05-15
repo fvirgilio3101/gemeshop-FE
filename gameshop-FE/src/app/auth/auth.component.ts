@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-auth',
