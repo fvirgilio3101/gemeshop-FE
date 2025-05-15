@@ -20,11 +20,12 @@ export class VideogameSearchService{
       params = params.set('priceVideogame', filters.maxPrice.toString());
     }
     if (filters.releaseDate) {
-      const formattedDate = new Date(filters.releaseDate).toISOString().split('T')[0];
-      params = params.set('releaseDateVideogame', formattedDate);
+      const releaseDate = new Date(filters.releaseDate);
+      const timestamp = releaseDate.getTime();
+      params = params.set('releaseDateVideogame', timestamp.toString());
     }
-    if (filters.platform) {
-      params = params.set('platforms', filters.platform);
+    if (filters.platforms) {
+      params = params.set('platforms', filters.platforms);
     }
 
     return this.http.get<Videogame[]>(`${this.apiUrl}/filter`, { params,withCredentials:true });

@@ -23,6 +23,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { VideogameService } from '../service/videogame/videogame.service';
+import { Platform } from '../model/platform';
 
 @Component({
   selector: 'app-videogame',
@@ -61,12 +62,19 @@ export class VideogameComponent implements OnInit {
   userID = 1;
   isLoggedIn: boolean = false;
 
+  availablePlatforms: Platform[] = [
+      new Platform(1, 'PlayStation 5', 'PS5'),
+      new Platform(2, 'Xbox Series X', 'XSX'),
+      new Platform(3, 'PC', 'PC'),
+      new Platform(4, 'Nintendo Switch', 'Switch'),
+    ];
+
   filterForm: FormGroup = new FormGroup({
     title: new FormControl(''),
     maxPrice: new FormControl(null),
     averageRating: new FormControl(null),
     releaseDate: new FormControl(null),
-    platform : new FormControl(null),
+    platforms: new FormControl([]),
   });
 
   videogames_ = this.gameService.videogameSignal;
