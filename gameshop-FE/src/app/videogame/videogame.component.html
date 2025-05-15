@@ -91,6 +91,16 @@
             <mat-card-subtitle>{{game.releaseDateVideogame | date:'dd MMM yyyy' }}</mat-card-subtitle>
           </mat-card-header>
 
+              <mat-chip-listbox aria-label="Piattaforme" class="platform-chips">
+            @for (platform of game.platforms; track $index){
+                  <mat-chip color="primary" selected>
+                    {{ platform.name }}
+                  </mat-chip>
+            }
+                </mat-chip-listbox>
+                
+ 
+
           <mat-card-content>
             <p>{{ game.descVideogame }}</p>
            <!--

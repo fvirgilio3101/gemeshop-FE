@@ -23,6 +23,10 @@ export class VideogameSearchService{
       const formattedDate = new Date(filters.releaseDate).toISOString().split('T')[0];
       params = params.set('releaseDateVideogame', formattedDate);
     }
+    if (filters.platform) {
+      params = params.set('platforms', filters.platform);
+    }
+
     return this.http.get<Videogame[]>(`${this.apiUrl}/filter`, { params,withCredentials:true });
   }
 }

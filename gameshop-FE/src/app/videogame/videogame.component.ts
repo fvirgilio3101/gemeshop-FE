@@ -72,6 +72,7 @@ export class VideogameComponent implements OnInit {
     maxPrice: new FormControl(null),
     averageRating: new FormControl(null),
     releaseDate: new FormControl(null),
+    platform : new FormControl(null),
   });
 
   videogames_ = this.gameService.videogameSignal;

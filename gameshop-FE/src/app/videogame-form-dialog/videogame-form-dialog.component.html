@@ -16,6 +16,18 @@
     <textarea matInput formControlName="descVideogame" placeholder="Descrizione del gioco"></textarea>
   </mat-form-field>
 
+<mat-form-field appearance="fill" class="full-width">
+  <mat-label>Piattaforme</mat-label>
+  <mat-select formControlName="platforms" multiple>
+    @for (platform of availablePlatforms; track $index) {
+    <mat-option [value]="platform">
+      {{ platform.name }}
+    </mat-option>
+  }
+  </mat-select>
+</mat-form-field>
+
+
   <mat-form-field appearance="fill">
     <mat-label>Data</mat-label>
     <input matInput [matDatepicker]="picker" formControlName="releaseDateVideogame" />

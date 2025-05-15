@@ -5,7 +5,7 @@
   "editor.fontLigatures": true,
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
-  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorSmoothCaretAnimation": "on",
   "editor.minimap.enabled": true,
   "workbench.startupEditor": "newUntitledFile",
   "terminal.integrated.fontFamily": "'Fira Code', monospace"
