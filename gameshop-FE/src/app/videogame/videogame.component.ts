@@ -2,16 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
-
-import { Videogame } from '../model/videogame';
 import { VideogameFormDialogComponent } from '../videogame-form-dialog/videogame-form-dialog.component';
+import { RatingService } from '../service/rating.service';
+import { VideogameSearchService } from '../service/videogame/videogame-search.service';
 
-import { VideogameEventService } from './videogame-event.service';
-import { RatingService } from './rating.service';
-import { VideogameSearchService } from './videogame-search.service';
-
-// Angular Material modules
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,7 +22,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
-import { VideogameService } from './videogame.service';
+import { VideogameService } from '../service/videogame/videogame.service';
 
 @Component({
   selector: 'app-videogame',

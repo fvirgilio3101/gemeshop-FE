@@ -6,8 +6,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
-import { VideogameEventService } from '../videogame/videogame-event.service';
-import { VideogameService } from '../videogame/videogame.service';
+import { VideogameService } from '../service/videogame/videogame.service';
 import { Platform } from '../model/platform';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -32,8 +31,8 @@ import { MatSelectModule } from '@angular/material/select';
 export class VideogameFormDialogComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
-  private dialog = inject(MatDialogRef<VideogameFormDialogComponent>);
-  private service = inject(VideogameService);
+  private readonly dialog = inject(MatDialogRef<VideogameFormDialogComponent>);
+  private readonly service = inject(VideogameService);
   availablePlatforms: Platform[] = [
     new Platform(1, 'PlayStation 5', 'PS5'),
     new Platform(2, 'Xbox Series X', 'XSX'),

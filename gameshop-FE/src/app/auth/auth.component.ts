@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -15,20 +15,11 @@ export class AuthComponent {
   password = '';
   errorMessage = '';
 
- private http = inject(HttpClient);
+
+ private readonly service = inject(AuthService);
   onSubmit() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    });
-  
-    const body = `username=${encodeURIComponent(this.username)}&password=${encodeURIComponent(this.password)}`;
-  
-    this.http
-      .post('http://localhost:8082/it.ecubit.gameshop/login', body, {
-        headers,
-        withCredentials: true,
-        responseType: 'text',
-      })
+
+    this.service.login(this.username,this.password)
       .subscribe({
         next: (response) => {
           console.log('Login response', response);
