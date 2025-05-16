@@ -18,6 +18,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./register/register.component').then((m) => m.RegisterComponent),
   },
+  {
+  path: 'user-detail',
+  loadComponent: () => import('./user-detail/user-detail.component').then(m => m.UserDetailComponent)
+},
+
   { path: '', redirectTo: 'videogames', pathMatch: 'full' }, // Redirigi alla pagina di login di default
   { path: '**', redirectTo: 'videogames' }, // Redirigi alle pagine di login se la rotta non esiste
+
 ];
