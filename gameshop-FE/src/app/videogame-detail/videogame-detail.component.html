@@ -1,0 +1,54 @@
+@if(game_(); as game){
+  <mat-toolbar color="primary">
+    <span>{{ game.titleVideogame }}</span>
+  </mat-toolbar>
+
+  <div class="detail-container">
+    <mat-card class="cover-card">
+      <img mat-card-image [src]="game.coverImage" alt="Copertina Videogioco" />
+    </mat-card>
+
+    <div class="info-section">
+      <h2>{{ game.titleVideogame }}</h2>
+      <p><strong>Prezzo:</strong> {{ game.priceVideogame | currency:'EUR' }}</p>
+      <p><strong>Data di rilascio:</strong> {{ game.releaseDateVideogame | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Valutazione:</strong> {{ game.rating }}/5</p>
+      <p><strong>Descrizione:</strong><br />{{ game.descVideogame }}</p>
+
+      <p><strong>Piattaforme:</strong></p>
+      <mat-chip-listbox>
+        @for(p of game.platforms; track $index){
+          <mat-chip color="primary">{{ p.name }}</mat-chip>
+        }
+      </mat-chip-listbox>
+
+      <p><strong>Generi:</strong></p>
+      <mat-chip-listbox>
+        @for(g of game.genres;track $index){
+          <mat-chip color="accent">{{ g.name }}</mat-chip>
+        }
+      </mat-chip-listbox>
+    </div>
+
+    <div class="screenshots">
+      <h3>Screenshots</h3>
+      <div class="screenshot-gallery">
+        @for (shot of game.screenshots.slice(0, 5); track $index) {
+          <img
+            [src]="shot"
+            alt="Screenshot"
+          />
+        }
+      </div>
+    </div>
+  </div>
+}
+@else{
+   <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+}
+
+
+
+

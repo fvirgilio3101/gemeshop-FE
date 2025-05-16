@@ -113,7 +113,11 @@
       @for (game of videogames_(); track game.idVideogame) {
         <mat-card class="game-card mat-elevation-z4">
           <mat-card-header>
-            <mat-card-title>{{ game.titleVideogame }}</mat-card-title>
+            <mat-card-title>
+              <a [routerLink]="['/videogame', game.idVideogame]">
+                {{ game.titleVideogame }}
+              </a>
+            </mat-card-title>
             <mat-card-subtitle>
               <span><b>Prezzo:</b> {{ game.priceVideogame | currency:'EUR' }}</span><br>
               <span><b>Uscita:</b> {{ game.releaseDateVideogame | date:'dd/MM/yyyy' }}</span>

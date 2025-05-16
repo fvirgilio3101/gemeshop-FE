@@ -18,6 +18,10 @@ export class VideogameService {
     this.http.get<Videogame[]>(this.baseUrl, {withCredentials : true}).subscribe(data => this.videogameSignal.set(data));
   }
 
+  readVideogame(id:number):Observable<Videogame>{
+    return this.http.get<Videogame>(this.baseUrl + '/'+ id);
+  }
+
   createVideogame(videogame: Videogame){
     return this.http.post<Videogame>(this.baseUrl, videogame, {
       withCredentials: true,

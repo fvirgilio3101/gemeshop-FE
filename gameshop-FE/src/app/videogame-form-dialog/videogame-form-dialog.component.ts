@@ -57,6 +57,8 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
       descVideogame: new FormControl(''),
       releaseDateVideogame: new FormControl<Date | null>(null),
       platforms: new FormControl([]),
+      coverImage: new FormControl(''),
+      screenshots:new FormControl([])
     });
   }
 

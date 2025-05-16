@@ -10,8 +10,21 @@ export class Videogame{
   rating : number;
   releaseDateVideogame : Date;
   platforms : Platform[];
+  coverImage: string;
+  screenshots: string[]
 
-  constructor(idVideogame:number,titleVideogame: string,genres:Genres[],priceVideogame:number,descVideogame:string,rating:number, releaseDate:Date, platforms : Platform[]){
+  constructor(
+    idVideogame:number,
+    titleVideogame: string,
+    genres:Genres[],
+    priceVideogame:number,
+    descVideogame:string,
+    rating:number,
+    releaseDate:Date,
+    platforms : Platform[],
+    coverImage:string,
+    screenshots:string[]
+  ){
     this.idVideogame = idVideogame;
     this.titleVideogame = titleVideogame;
     this.genres = genres;
@@ -20,6 +33,8 @@ export class Videogame{
     this.rating = rating;
     this.releaseDateVideogame = releaseDate;
     this.platforms = platforms;
+    this.coverImage = coverImage;
+    this.screenshots = screenshots;
   }
 
 

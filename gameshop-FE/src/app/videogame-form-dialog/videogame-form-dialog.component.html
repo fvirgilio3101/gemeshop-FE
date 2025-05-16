@@ -46,6 +46,19 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Immagine di copertina</mat-label>
+    <input matInput formControlName="coverImage" placeholder="Immagine di copertina" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Screenshot</mat-label>
+    <input matInput formControlName="screenshots" placeholder="Screenshots" />
+  </mat-form-field>
+
+
+
   <div class="actions">
     <button mat-flat-button color="primary" type="submit">Salva</button>
     <button mat-stroked-button color="warn" type="button" (click)="reset()">Reset</button>
