@@ -27,6 +27,17 @@
   </mat-select>
 </mat-form-field>
 
+<mat-form-field appearance="fill" class="full-width">
+  <mat-label>Genere</mat-label>
+  <mat-select formControlName="genres" multiple>
+    @for (genre of selectGenres(); track $index) {
+    <mat-option [value]="genre.id">
+      {{ genre.name }}
+    </mat-option>
+  }
+  </mat-select>
+</mat-form-field>
+
 
   <mat-form-field appearance="fill">
     <mat-label>Data</mat-label>

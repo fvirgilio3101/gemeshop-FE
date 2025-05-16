@@ -5,6 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { VideogameFormDialogComponent } from '../videogame-form-dialog/videogame-form-dialog.component';
 import { RatingService } from '../service/rating.service';
 import { VideogameSearchService } from '../service/videogame/videogame-search.service';
+import { GenreService } from '../service/genre.service';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -57,10 +58,13 @@ export class VideogameComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   private readonly searchService = inject(VideogameSearchService);
   private readonly ratingService = inject(RatingService);
+  private readonly genreService = inject(GenreService);
 
   hoveredRating: { [id: number]: number } = {};
   userID = 1;
   isLoggedIn: boolean = false;
+
+  selectGenres = this.genreService.getGenre_();
 
   availablePlatforms: Platform[] = [
       new Platform(1, 'PlayStation 5', 'PS5'),
@@ -83,6 +87,10 @@ export class VideogameComponent implements OnInit {
     const loggedInStatus = sessionStorage.getItem('isLoggedIn');
     this.isLoggedIn = loggedInStatus === 'true';
     this.gameService.readAllVideogame();
+    this.genreService
+      .readAllGenres()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((genres) => this.genreService.getGenre_().set(genres));
   }
 
   applyFilters() {
@@ -91,6 +99,7 @@ export class VideogameComponent implements OnInit {
       .readFilteredVideogames(filters)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((filtered) => this.videogames_.set(filtered));
+
   }
 
   resetFilters() {

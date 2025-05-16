@@ -40,7 +40,7 @@ export class VideogameService {
     this.http.delete<void>(this.baseUrl, { withCredentials: true }).subscribe();
   }
 
-  setGenres(id: number, genres: string[]): Observable<Videogame> {
+  setGenres(id: number, genres: number[]): Observable<Videogame> {
     return this.http.put<Videogame>(`${this.baseUrl}/${id}/genres`, genres, {
       withCredentials: true,
     });

@@ -76,8 +76,19 @@
         <mat-label>Piattaforme</mat-label>
         <mat-select formControlName="platforms" multiple>
           @for (platform of availablePlatforms; track $index) {
-            <mat-option [value]="platform.name">
+            <mat-option [value]="platform">
               {{ platform.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Genere</mat-label>
+        <mat-select formControlName="platforms" multiple>
+          @for (genre of selectGenres(); track $index) {
+            <mat-option [value]="genre.name">
+              {{ genre.name }}
             </mat-option>
           }
         </mat-select>
@@ -115,14 +126,13 @@
 
           <mat-card-content>
             <p>{{ game.descVideogame }}</p>
-           <!--
+
 
             @for (genre of game.genres; track genre.name) {
               <mat-chip class="genres" color="accent" selected>
                 {{ genre.name }}
               </mat-chip>
             }
-              -->
 
             <div class="rating">
               @for (star of [1, 2, 3, 4, 5]; track $index) {
