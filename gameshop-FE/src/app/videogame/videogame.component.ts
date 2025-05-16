@@ -66,6 +66,8 @@ export class VideogameComponent implements OnInit {
 
   selectGenres = this.genreService.getGenre_();
 
+  videogames_ = this.searchService.getVideogame_();
+
   availablePlatforms: Platform[] = [
       new Platform(1, 'PlayStation 5', 'PS5'),
       new Platform(2, 'Xbox Series X', 'XSX'),
@@ -82,12 +84,15 @@ export class VideogameComponent implements OnInit {
     genres:new FormControl([]),
   });
 
-  videogames_ = this.gameService.videogameSignal;
+
 
   ngOnInit() {
     const loggedInStatus = sessionStorage.getItem('isLoggedIn');
     this.isLoggedIn = loggedInStatus === 'true';
     this.gameService.readAllVideogame();
+    this.searchService.readAllVideogame()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((games) => this.searchService.getVideogame_().set(games));
     this.genreService
       .readAllGenres()
       .pipe(takeUntilDestroyed(this.destroyRef))

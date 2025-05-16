@@ -121,7 +121,7 @@
               <span class="chip-label"><b>Piattaforme:</b></span>
               <mat-chip-listbox>
                 @for (platform of game.platforms; track $index) {
-                  <mat-chip color="primary" selected>{{ platform.name }}</mat-chip>
+                  <mat-chip color="primary" selected>{{ platform }}</mat-chip>
                 }
               </mat-chip-listbox>
             </div>
@@ -129,8 +129,8 @@
             <div class="chip-section">
               <span class="chip-label"><b>Generi:</b></span>
               <mat-chip-listbox>
-                @for (genre of game.genres; track genre.name) {
-                  <mat-chip class="genres" color="accent" selected>{{ genre.name }}</mat-chip>
+                @for (genre of game.genres; track genre) {
+                  <mat-chip class="genres" color="accent" selected>{{ genre }}</mat-chip>
                 }
               </mat-chip-listbox>
             </div>
