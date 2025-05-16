@@ -1,9 +1,9 @@
 export class Genres{
-  id : number;
+  idGenre : number;
   name: string;
 
   constructor(id:number,name:string){
-    this.id = id;
+    this.idGenre = id;
     this.name = name;
   }
 }

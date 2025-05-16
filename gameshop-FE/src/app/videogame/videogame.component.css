@@ -1,4 +1,4 @@
-
+/* Toolbar */
 mat-toolbar {
   display: flex;
   justify-content: space-between;
@@ -8,30 +8,34 @@ mat-toolbar {
   padding: 0 16px;
 }
 
+/* Layout container principale */
 .catalog-container {
   display: flex;
   gap: 24px;
   padding: 24px;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
+/* Sidebar filtri */
 .filters-container {
   flex: 0 0 300px;
-  max-height: 100%;
   padding: 16px;
   background-color: #f7f7f7;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 100px;
+  height: fit-content;
 }
 
+/* Pulsanti disabilitati */
 .disabled-icon {
-  color: grey; 
+  color: grey;
   pointer-events: none;
 }
 
-
+/* Lista giochi */
 .games-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -39,9 +43,8 @@ mat-toolbar {
   flex: 1;
 }
 
-/* Card di ogni gioco */
+/* Card singola gioco */
 .game-card {
-  width: calc(25% - 16px); /* 4 per riga, con spazio */
   background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
@@ -70,8 +73,11 @@ mat-toolbar {
 .game-card mat-card-subtitle {
   font-size: 14px;
   color: #666;
+  display: block;
+  margin-top: 4px;
 }
 
+/* Contenuto principale della card */
 .game-card mat-card-content {
   padding: 16px;
   display: flex;
@@ -85,7 +91,16 @@ mat-toolbar {
   color: #444;
 }
 
-/* Chip dei generi */
+/* Chips piattaforme */
+.platform-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  padding-left: 16px;
+}
+
+/* Chips generi */
 mat-chip.genres {
   margin: 2px;
   font-size: 11px;
@@ -95,7 +110,7 @@ mat-chip.genres {
   border-radius: 12px;
 }
 
-/* Valutazione con stelle */
+/* Stelle rating */
 mat-icon {
   cursor: pointer;
   font-size: 24px;
@@ -106,32 +121,6 @@ mat-icon:hover {
   transform: scale(1.1);
 }
 
-/* Disposizione responsive in righe da 4 */
-.games-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-/* Responsive */
-@media (max-width: 1200px) {
-  .game-card {
-    width: calc(33.333% - 16px); /* 3 per riga */
-  }
-}
-
-@media (max-width: 900px) {
-  .game-card {
-    width: calc(50% - 16px); /* 2 per riga */
-  }
-}
-
-@media (max-width: 600px) {
-  .game-card {
-    width: 100%; /* 1 per riga */
-  }
-}
-
 .rating {
   display: flex;
   flex-direction: row;
@@ -139,16 +128,61 @@ mat-icon:hover {
   align-items: center;
   margin-top: 8px;
 }
+
+/* Toolbar actions */
 .toolbar-actions {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.platform-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px; /* spazio tra le chips */
-  margin-top: 8px;
-  padding-left: 16px; /* allinea col contenuto sotto il titolo */
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .games-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
+@media (max-width: 900px) {
+  .catalog-container {
+    flex-direction: column;
+  }
+
+  .filters-container {
+    width: 100%;
+    position: relative;
+    top: unset;
+    margin-bottom: 16px;
+  }
+
+  .games-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .games-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .filters-container {
+    padding: 12px;
+  }
+
+  .game-card mat-card-header,
+  .game-card mat-card-content {
+    padding: 12px;
+  }
+
+  .game-card mat-card-title {
+    font-size: 18px;
+  }
+
+  .game-card mat-card-subtitle {
+    font-size: 13px;
+  }
+
+  .game-card p {
+    font-size: 13px;
+  }
+}

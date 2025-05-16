@@ -24,8 +24,12 @@ export class VideogameSearchService{
       const timestamp = releaseDate.getTime();
       params = params.set('releaseDateVideogame', timestamp.toString());
     }
-    if (filters.platforms) {
-      params = params.set('platforms', filters.platforms);
+   if (filters.platforms && filters.platforms.length > 0) {
+      params = params.set('platforms', filters.platforms.join(','));
+    }
+
+    if (filters.genres && filters.genres.length > 0) {
+      params = params.set('genres', filters.genres.join(','));
     }
 
     return this.http.get<Videogame[]>(`${this.apiUrl}/filter`, { params,withCredentials:true });
