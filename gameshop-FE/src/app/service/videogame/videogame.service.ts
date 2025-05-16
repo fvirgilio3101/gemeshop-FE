@@ -41,7 +41,7 @@ export class VideogameService {
   }
 
   setGenres(id: number, genres: number[]): Observable<Videogame> {
-    return this.http.put<Videogame>(`${this.baseUrl}/${id}/genres`, genres, {
+    return this.http.put<Videogame>(`${this.baseUrl}/${id}/genre`, genres, {
       withCredentials: true,
     });
   }

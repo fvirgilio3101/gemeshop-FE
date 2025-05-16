@@ -76,7 +76,7 @@
         <mat-label>Piattaforme</mat-label>
         <mat-select formControlName="platforms" multiple>
           @for (platform of availablePlatforms; track $index) {
-            <mat-option [value]="platform">
+            <mat-option [value]="platform.name">
               {{ platform.name }}
             </mat-option>
           }
@@ -85,7 +85,7 @@
 
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Genere</mat-label>
-        <mat-select formControlName="platforms" multiple>
+        <mat-select formControlName="genres" multiple>
           @for (genre of selectGenres(); track $index) {
             <mat-option [value]="genre.name">
               {{ genre.name }}
@@ -109,47 +109,48 @@
         <mat-card class="game-card mat-elevation-z4">
           <mat-card-header>
             <mat-card-title>{{ game.titleVideogame }}</mat-card-title>
-            <br>
-            <mat-card-subtitle><span><b>Prezzo:</b></span>{{ game.priceVideogame | currency:'EUR' }}</mat-card-subtitle>
-            <mat-card-subtitle><span><b>Data di uscita:</b></span>{{game.releaseDateVideogame | date:'dd MM yyyy' }}</mat-card-subtitle>
+            <mat-card-subtitle>
+              <span><b>Prezzo:</b> {{ game.priceVideogame | currency:'EUR' }}</span><br>
+              <span><b>Uscita:</b> {{ game.releaseDateVideogame | date:'dd/MM/yyyy' }}</span>
+            </mat-card-subtitle>
           </mat-card-header>
-
-              <mat-chip-listbox aria-label="Piattaforme" class="platform-chips">
-            @for (platform of game.platforms; track $index){
-                  <mat-chip color="primary" selected>
-                    {{ platform.name }}
-                  </mat-chip>
-            }
-                </mat-chip-listbox>
-
-
-
           <mat-card-content>
-            <p>{{ game.descVideogame }}</p>
+            <p class="description">{{ game.descVideogame }}</p>
 
+            <div class="chip-section">
+              <span class="chip-label"><b>Piattaforme:</b></span>
+              <mat-chip-listbox>
+                @for (platform of game.platforms; track $index) {
+                  <mat-chip color="primary" selected>{{ platform.name }}</mat-chip>
+                }
+              </mat-chip-listbox>
+            </div>
 
-            @for (genre of game.genres; track genre.name) {
-              <mat-chip class="genres" color="accent" selected>
-                {{ genre.name }}
-              </mat-chip>
-            }
+            <div class="chip-section">
+              <span class="chip-label"><b>Generi:</b></span>
+              <mat-chip-listbox>
+                @for (genre of game.genres; track genre.name) {
+                  <mat-chip class="genres" color="accent" selected>{{ genre.name }}</mat-chip>
+                }
+              </mat-chip-listbox>
+            </div>
 
             <div class="rating">
               @for (star of [1, 2, 3, 4, 5]; track $index) {
                 <mat-icon
+                  tabindex="0"
+                  role="button"
                   color="warn"
                   (mouseenter)="hoveredRating[game.idVideogame] = $index + 1"
                   [class.disabled-icon]="!isLoggedIn"
                   (click)="isLoggedIn && rateGame(game.idVideogame, $index + 1)"
+                  (keydown.enter)="isLoggedIn && rateGame(game.idVideogame, $index + 1)"
+                  (keydown.space)="isLoggedIn && rateGame(game.idVideogame, $index + 1)"
                 >
                   {{ (hoveredRating[game.idVideogame] || game.rating) > $index ? 'star' : 'star_border' }}
                 </mat-icon>
               }
             </div>
-
-
-
-
           </mat-card-content>
         </mat-card>
       }

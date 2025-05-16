@@ -79,6 +79,7 @@ export class VideogameComponent implements OnInit {
     averageRating: new FormControl(null),
     releaseDate: new FormControl(null),
     platforms: new FormControl([]),
+    genres:new FormControl([]),
   });
 
   videogames_ = this.gameService.videogameSignal;

@@ -11,7 +11,7 @@ import { Platform } from '../model/platform';
 import { MatSelectModule } from '@angular/material/select';
 import { GenreService } from '../service/genre.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { mergeMap } from 'rxjs';
+import { concatMap, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-videogame-form-dialog',
@@ -50,11 +50,11 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.form = new FormGroup({
       titleVideogame: new FormControl(''),
+      genres: new FormControl([]),
       priceVideogame: new FormControl(),
       descVideogame: new FormControl(''),
       releaseDateVideogame: new FormControl<Date | null>(null),
       platforms: new FormControl([]),
-      genres: new FormControl([])
     });
   }
 
@@ -67,9 +67,8 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.form.valid) {
-      const genres = this.form.get('genres')?.value;
       this.service.createVideogame(this.form.value).pipe(
-        mergeMap(v=>this.service.setGenres(v.idVideogame,genres))
+       takeUntilDestroyed(this.destroyRef)
       ).subscribe(() => {
         this.dialog.close();
       });
