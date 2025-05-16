@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { GenreService } from '../service/genre.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { concatMap, mergeMap } from 'rxjs';
+import { VideogameSearchService } from '../service/videogame/videogame-search.service';
 
 @Component({
   selector: 'app-videogame-form-dialog',
@@ -38,6 +39,7 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
   private readonly service = inject(VideogameService);
   private readonly genreService = inject(GenreService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly searchService = inject(VideogameSearchService);
 
   selectGenres = this.genreService.getGenre_();
   availablePlatforms: Platform[] = [
@@ -70,6 +72,7 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
       this.service.createVideogame(this.form.value).pipe(
        takeUntilDestroyed(this.destroyRef)
       ).subscribe(() => {
+        this.searchService.refresh();
         this.dialog.close();
       });
     }

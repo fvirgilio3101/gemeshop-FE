@@ -17,9 +17,15 @@ export class VideogameSearchService{
   getVideogame_(){
     return this.videogame_
   }
+
   readAllVideogame():Observable<VideogameDocument[]>{
     return this.http.get<VideogameDocument[]>(this.apiUrl +'/videogames')
   }
+
+   refresh() {
+    this.readAllVideogame().subscribe(data => this.videogame_.set(data));
+  }
+
   readFilteredVideogames(filters: any): Observable<VideogameDocument[]> {
     let params = new HttpParams();
 

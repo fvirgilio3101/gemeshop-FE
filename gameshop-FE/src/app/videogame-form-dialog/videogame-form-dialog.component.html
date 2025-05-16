@@ -31,7 +31,7 @@
   <mat-label>Genere</mat-label>
   <mat-select formControlName="genres" multiple>
     @for (genre of selectGenres(); track $index) {
-    <mat-option [value]="genre.idGenre">
+    <mat-option [value]="genre">
       {{ genre.name }}
     </mat-option>
   }
