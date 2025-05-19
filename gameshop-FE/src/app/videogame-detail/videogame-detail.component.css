@@ -18,6 +18,7 @@ mat-toolbar {
 .cover-card {
   max-width: 50%;
   width: 100%;
+
   img {
     width: 100%;
     border-radius: 8px;
@@ -34,29 +35,37 @@ mat-toolbar {
   }
 
   p {
-    margin: 0.5rem 0;
+    margin: 1.2rem 0; /* aumento della distanza tra paragrafi */
     font-size: 1.1rem;
   }
 
-  mat-chip-list {
-    margin-bottom: 1rem;
+  mat-chip-list,
+  mat-chip-listbox {
+    margin-bottom: 1.5rem; /* maggiore spazio dopo le liste */
   }
-}
 
-.screenshots {
-  width: 100%;
-  max-width: 1000px;
-
-  .screenshot-gallery {
+  .rating {
     display: flex;
-    gap: 1rem;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    margin: 1rem 0; /* distanza verticale */
+  }
 
-    img {
-      height: 120px;
-      border-radius: 8px;
-      object-fit: cover;
+  .screenshots {
+    margin-top: 1.5rem;
+
+    .screenshot-gallery {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+
+      img {
+        height: 120px;
+        border-radius: 8px;
+        object-fit: cover;
+      }
     }
   }
 }
@@ -84,14 +93,6 @@ mat-icon {
 
 mat-icon:hover {
   transform: scale(1.1);
-}
-
-.rating {
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-  align-items: center;
-  margin-top: 8px;
 }
 
 .platform-chips {

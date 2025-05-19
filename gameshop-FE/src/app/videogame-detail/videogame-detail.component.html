@@ -38,17 +38,17 @@
           <mat-chip class="genres">{{ g.name }}</mat-chip>
         }
       </mat-chip-listbox>
-    </div>
 
-    <div class="screenshots">
-      <h3>Screenshots</h3>
-      <div class="screenshot-gallery">
-        @for (shot of game.screenshots.slice(0, 5); track $index) {
-          <img
-            [src]="shot"
-            alt="Screenshot"
-          />
-        }
+      <div class="screenshots">
+        <p><strong>Schermate di gioco: </strong></p>
+        <div class="screenshot-gallery">
+          @for (shot of game.screenshots.slice(0, 5); track $index) {
+            <img
+              [src]="shot"
+              alt="Screenshot"
+            />
+          }
+        </div>
       </div>
     </div>
   </div>
