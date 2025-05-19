@@ -1,6 +1,6 @@
 import { Component, inject, signal} from '@angular/core';
 import { VideogameService } from '../service/videogame/videogame.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Videogame } from '../model/videogame';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
@@ -19,7 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatProgressSpinner,
     MatToolbarModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule,
   ],
   templateUrl: './videogame-detail.component.html',
   styleUrl: './videogame-detail.component.css'

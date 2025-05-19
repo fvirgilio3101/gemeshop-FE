@@ -1,6 +1,8 @@
 @if(game_(); as game){
   <mat-toolbar color="primary">
-    <span>{{ game.titleVideogame }}</span>
+
+    <mat-icon [routerLink]="'/videogames'" aria-label="Torna ai giochi">arrow_back</mat-icon>
+    <span class="game-title">{{ game.titleVideogame }}</span>
   </mat-toolbar>
 
   <div class="detail-container">
