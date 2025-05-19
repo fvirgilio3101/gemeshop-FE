@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
@@ -13,6 +13,7 @@ import { GenreService } from '../service/genre.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { concatMap, mergeMap } from 'rxjs';
 import { VideogameSearchService } from '../service/videogame/videogame-search.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-videogame-form-dialog',
@@ -28,12 +29,15 @@ import { VideogameSearchService } from '../service/videogame/videogame-search.se
     MatNativeDateModule,
     MatOptionModule,
     MatSelectModule,
+    MatIconModule,
+    FormsModule
   ],
   templateUrl: './videogame-form-dialog.component.html',
   styleUrl: './videogame-form-dialog.component.css',
 })
 export class VideogameFormDialogComponent implements OnInit, OnDestroy {
   form: FormGroup;
+  newScreenshot:string = '';
 
   private readonly dialog = inject(MatDialogRef<VideogameFormDialogComponent>);
   private readonly service = inject(VideogameService);
@@ -58,9 +62,25 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
       releaseDateVideogame: new FormControl<Date | null>(null),
       platforms: new FormControl([]),
       coverImage: new FormControl(''),
-      screenshots:new FormControl([])
+      screenshots: new FormArray([])
     });
   }
+
+  get screenshots(): FormArray {
+  return this.form.get('screenshots') as FormArray;
+}
+
+addScreenshot() {
+  const trimmed = this.newScreenshot.trim();
+  if (trimmed) {
+    this.screenshots.push(new FormControl(trimmed));
+    this.newScreenshot = '';
+  }
+}
+
+removeScreenshot(index: number) {
+  this.screenshots.removeAt(index);
+}
 
   ngOnDestroy(): void {
     this.genreService.readAllGenres()
@@ -71,7 +91,8 @@ export class VideogameFormDialogComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.form.valid) {
-      this.service.createVideogame(this.form.value).pipe(
+      const formValue = this.form.value;
+      this.service.createVideogame(formValue).pipe(
        takeUntilDestroyed(this.destroyRef)
       ).subscribe(() => {
         this.searchService.refresh();

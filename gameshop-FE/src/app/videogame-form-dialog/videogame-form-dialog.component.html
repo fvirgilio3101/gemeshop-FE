@@ -52,12 +52,28 @@
     <input matInput formControlName="coverImage" placeholder="Immagine di copertina" />
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Screenshot</mat-label>
-    <input matInput formControlName="screenshots" placeholder="Screenshots" />
-  </mat-form-field>
+  <h3>Screenshots</h3>
 
+<mat-form-field class="full-width">
+  <mat-label>URL Screenshot</mat-label>
+  <input matInput [(ngModel)]="newScreenshot" [ngModelOptions]="{standalone: true}" />
+</mat-form-field>
 
+<button mat-raised-button color="primary" type="button" (click)="addScreenshot()" [disabled]="!newScreenshot">
+  Aggiungi Screenshot
+</button>
+@if(screenshots.controls.length > 0){
+  <div class="screenshot-gallery">
+    @for(ctrl of screenshots.controls;track $index){
+      <div class="screenshot-item">
+          <img [src]="ctrl.value" alt="Screenshot {{ $index + 1 }}" width="150" />
+          <button mat-icon-button color="warn" (click)="removeScreenshot($index)">
+            <mat-icon>delete</mat-icon>
+          </button>
+      </div>
+    }
+  </div>
+}
 
   <div class="actions">
     <button mat-flat-button color="primary" type="submit">Salva</button>
