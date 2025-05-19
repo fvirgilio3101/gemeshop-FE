@@ -45,3 +45,7 @@ h2 {
   top: 0;
   right: 0;
 }
+.mat-dialog-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
