@@ -1,4 +1,8 @@
 @if(user != null && !errorMessage){
+  <mat-toolbar color="primary">
+    <mat-icon [routerLink]="'/videogames'" aria-label="Torna ai giochi">arrow_back</mat-icon>
+    <span class="game-title">Profilo Utente</span>
+  </mat-toolbar>
   <mat-card class="user-card">
     <mat-card-header>
       <div class="header-content">

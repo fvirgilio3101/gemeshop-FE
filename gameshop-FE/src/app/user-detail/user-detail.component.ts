@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-detail',
@@ -24,7 +26,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   MatInputModule,
   CommonModule,
   MatDividerModule,
-  MatProgressSpinner
+  MatProgressSpinner,
+  MatToolbarModule,
+  RouterModule
 ],
 
 })
