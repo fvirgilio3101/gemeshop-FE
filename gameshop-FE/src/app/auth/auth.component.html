@@ -1,19 +1,22 @@
-<div class="login-container">
-    <h2>Login</h2>
-    <form (ngSubmit)="onSubmit()">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" [(ngModel)]="username" name= "username" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" [(ngModel)]="password" name="password" required>
-        </div>
-        <button type="submit">Accedi</button>
-        @if (errorMessage) {
-            <div class="error">
-              {{ errorMessage }}
-            </div>
-          }
-    </form>
+<mat-card class="login-card">
+  <h2 class="title">Login</h2>
+  <form (ngSubmit)="onSubmit()" class="login-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="username" name="username" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="'password'" [(ngModel)]="password" name="password" required>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" class="full-width">
+      Accedi
+    </button>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
     </div>
+  </form>
+</mat-card>

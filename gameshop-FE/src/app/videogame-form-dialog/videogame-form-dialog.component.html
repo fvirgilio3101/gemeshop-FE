@@ -1,84 +1,84 @@
 <h2 mat-dialog-title>Nuovo Videogioco</h2>
+
 <div mat-dialog-content>
   <form [formGroup]="form" (ngSubmit)="save()" class="videogame-form">
-    <mat-form-field appearance="fill" class="full-width">
+
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Titolo</mat-label>
       <input matInput formControlName="titleVideogame" placeholder="Inserisci il titolo" />
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Prezzo (€)</mat-label>
       <input matInput type="number" formControlName="priceVideogame" placeholder="Prezzo" />
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Descrizione</mat-label>
-      <textarea matInput formControlName="descVideogame" placeholder="Descrizione del gioco"></textarea>
+      <textarea matInput formControlName="descVideogame" placeholder="Descrizione del gioco" rows="4"></textarea>
     </mat-form-field>
 
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Piattaforme</mat-label>
-    <mat-select formControlName="platforms" multiple>
-      @for (platform of availablePlatforms; track $index) {
-      <mat-option [value]="platform">
-        {{ platform.name }}
-      </mat-option>
-    }
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Piattaforme</mat-label>
+      <mat-select formControlName="platforms" multiple>
+        @for (platform of availablePlatforms; track $index) {
+          <mat-option [value]="platform">
+            {{ platform.name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Genere</mat-label>
-    <mat-select formControlName="genres" multiple>
-      @for (genre of selectGenres(); track $index) {
-      <mat-option [value]="genre">
-        {{ genre.name }}
-      </mat-option>
-    }
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Genere</mat-label>
+      <mat-select formControlName="genres" multiple>
+        @for (genre of selectGenres(); track $index) {
+          <mat-option [value]="genre">
+            {{ genre.name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
-
-    <mat-form-field appearance="fill">
-      <mat-label>Data</mat-label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Data di rilascio</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="releaseDateVideogame" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Immagine di copertina</mat-label>
-      <input matInput formControlName="coverImage" placeholder="Immagine di copertina" />
+      <input matInput formControlName="coverImage" placeholder="URL dell'immagine" />
     </mat-form-field>
 
-    <h3>Screenshots</h3>
+    <h3 class="section-title">Screenshots</h3>
 
-  <mat-form-field class="full-width">
-    <mat-label>URL Screenshot</mat-label>
-    <input matInput [(ngModel)]="newScreenshot" [ngModelOptions]="{standalone: true}" />
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>URL Screenshot</mat-label>
+      <input matInput [(ngModel)]="newScreenshot" [ngModelOptions]="{ standalone: true }" placeholder="https://..." />
+    </mat-form-field>
 
-  <button mat-raised-button color="primary" type="button" (click)="addScreenshot()" [disabled]="!newScreenshot">
-    Aggiungi Screenshot
-  </button>
-  @if(screenshots.controls.length > 0){
-    <div class="screenshot-gallery">
-      @for(ctrl of screenshots.controls;track $index){
-        <div class="screenshot-item">
-            <img [src]="ctrl.value" alt="Screenshot {{ $index + 1 }}" width="150" />
+    <button mat-stroked-button color="primary" type="button" (click)="addScreenshot()" [disabled]="!newScreenshot">
+      Aggiungi Screenshot
+    </button>
+
+    @if(screenshots.controls.length > 0) {
+      <div class="screenshot-gallery">
+        @for(ctrl of screenshots.controls; track $index) {
+          <div class="screenshot-item">
+            <img [src]="ctrl.value" alt="Screenshot {{ $index + 1 }}" />
             <button mat-icon-button color="warn" (click)="removeScreenshot($index)">
               <mat-icon>delete</mat-icon>
             </button>
-        </div>
-      }
-    </div>
-  }
+          </div>
+        }
+      </div>
+    }
 
     <div class="actions">
       <button mat-flat-button color="primary" type="submit">Salva</button>
       <button mat-stroked-button color="warn" type="button" (click)="reset()">Reset</button>
     </div>
   </form>
-
 </div>
