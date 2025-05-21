@@ -29,13 +29,16 @@ mat-card-header {
 }
 
 .avatar-icon {
-  font-size: 56px;        /* più grande per non essere tagliata */
+  font-size: 48px;
   color: #3f51b5;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
   height: 56px;
-  flex-shrink: 0;         /* evita che si rimpicciolisca */
-  padding: 4px;
-  box-sizing: content-box;
+  border-radius: 50%;
+  background-color: #e8eaf6; 
+  flex-shrink: 0;
 }
 
 .user-info {
